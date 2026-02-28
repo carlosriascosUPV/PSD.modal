@@ -1,9 +1,10 @@
 # PSD.modal
 Esta aplicación genera el análisis modal basado en vibraciones experimentales.
 
-## Definición sensor por sensor (MATLAB)
-Se agregó un flujo para definir sensores individualmente con los campos solicitados:
+## Aplicación MATLAB (pestaña **Configuración**)
+Se agregó una app MATLAB funcional para definir sensores uno por uno en la pestaña **Configuración**.
 
+### Campos soportados por sensor
 - Frecuencia de muestreo en Hz (`SamplingHz`)
 - Número de serie opcional (`SerialNumber`)
 - Sensor ID (`SensorID`, por ejemplo `A1`)
@@ -12,19 +13,31 @@ Se agregó un flujo para definir sensores individualmente con los campos solicit
 - Factor (`Factor`)
 - Rango (`Range`)
 - Orientación por canal (`Orientation`: `+/-X`, `+/-Y`, `+/-Z`)
-- Tiempo UTC (`UTCStart`)
+- Tiempo UTC (`UTCStart`, formato `yyyy-MM-ddTHH:mm:ss`)
 
 ### Archivos
-- `matlab/buildSensorTable.m`: valida y transforma la definición de sensores en una tabla por canal.
-- `matlab/demo_sensor_config.m`: ejemplo de uso.
+- `matlab/SensorConfigApp.m`: app con UI y pestaña **Configuración**.
+- `matlab/runSensorConfigApp.m`: función para iniciar la app.
+- `matlab/buildSensorTable.m`: valida y transforma sensores a tabla por canal.
+- `matlab/demo_sensor_config.m`: ejemplo por script (sin UI).
 
-### Uso rápido
+## Uso
+### Opción 1: App (recomendado)
+```matlab
+run('matlab/runSensorConfigApp.m')
+```
+
+En la pestaña **Configuración** puedes:
+- Agregar sensores.
+- Eliminar sensores seleccionados.
+- Generar la tabla canal por canal.
+
+### Opción 2: Script directo
 ```matlab
 run('matlab/demo_sensor_config.m')
 ```
 
-O con tus propios datos:
-
+## Ejemplo de definición por script
 ```matlab
 sensors(1) = struct( ...
     'SamplingHz', 250, ...
